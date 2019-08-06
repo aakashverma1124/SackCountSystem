@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<script>
+    $(function () {
+        $("#startdate").datepicker({
+            showWeek: true,
+            yearSuffix: "-CE",
+            showAnim: "slide"
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $("#enddate").datepicker({
+            showWeek: true,
+            yearSuffix: "-CE",
+            showAnim: "slide"
+        });
+    });
+</script>
+
+
+
+<div class="container">
+    <div class="hello" align="center">
+        <u>Enter The Following Details</u><br>
+    </div><br>
+    <br>
+    <form class="form-inline" method="POST" action="{% url 'query' %}" id="queryform">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-4">
+                <p class="hel"> Date From: <input class="form-control" type="text" name='startdate' id='startdate'
+                        style="resize:horizontal; width:200px" required></p>
+            </div>
+            <div class="col-md-4">
+                <p class="hel"> Date To: <input class="form-control" type="text" name='enddate' id='enddate'
+                        style="resize:horizontal; width:200px" required></p>
+            </div>
+            <label class="my-1 mr-2" for="inlineFormInputName2">
+                <p id="comp">Comapany Name: </p>
+            </label>
+
+
+            <select class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Company Name"
+                name="company" required>
+                {% for com in company %}
+                <option value="{{ com.company_name }}">{{ com.company_name }}</option>
+                {% endfor %}
+            </select>
+
+        </div>
+    </form>
+    <br><br>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4"> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            <button id="sub" class="btn btn-dark btn-lg" type="submit" form="queryform">Show
+                Details</button>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>
+
+{% endblock %}
